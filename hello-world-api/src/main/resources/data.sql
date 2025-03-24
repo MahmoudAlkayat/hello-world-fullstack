@@ -1,0 +1,16 @@
+INSERT INTO hello_world_entity (mood, level) VALUES
+('happy', 100),
+('sad', 20),
+('excited', 90),
+('angry', 80),
+('calm', 50),
+('anxious', 70),
+('peaceful', 40),
+('energetic', 85),
+('tired', 15),
+('motivated', 95),
+('Happy', 5),
+('Excited', 8),
+('Calm', 3),
+('Energetic', 7),
+('Peaceful', 4);

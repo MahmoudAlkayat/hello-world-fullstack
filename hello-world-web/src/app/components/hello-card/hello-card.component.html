@@ -1,0 +1,13 @@
+<div class="card">
+  <div class="card-header">
+    <h3>{{ entity.id ? '#' + entity.id : 'New Entity' }}</h3>
+  </div>
+  <div class="card-content">
+    <p><strong>Mood:</strong> {{ entity.mood }}</p>
+    <p><strong>Level:</strong> {{ entity.level }}</p>
+  </div>
+  <div class="card-actions">
+    <button (click)="onEdit()">Edit</button>
+    <button (click)="onDelete()">Delete</button>
+  </div>
+</div>

@@ -1,0 +1,83 @@
+<div class="app-container">
+  <h1>Hello World Application</h1>
+
+  <!-- Left Section: Query Form -->
+  <div class="query-section">
+    <div class="form-group">
+      <label>ID</label>
+      <input type="number" [(ngModel)]="searchId">
+    </div>
+    <div class="form-group">
+      <label>Mood</label>
+      <input type="text" [(ngModel)]="searchMood">
+    </div>
+    <div class="form-group">
+      <label>Level</label>
+      <input type="number" [(ngModel)]="searchLevel">
+    </div>
+    <div class="radio-group">
+      <label>
+        <input type="radio" [(ngModel)]="searchType" [value]="'or'" name="searchType">
+        OR
+      </label>
+      <label>
+        <input type="radio" [(ngModel)]="searchType" [value]="'and'" name="searchType">
+        AND
+      </label>
+      <label>
+        <input type="radio" [(ngModel)]="searchType" [value]="null" name="searchType">
+        NONE
+      </label>
+    </div>
+    <button (click)="search()" class="query-button">Query Button</button>
+    <button (click)="loadAll()" class="query-button">Reset</button>
+  </div>
+
+  <!-- Middle Section: Create/Update Form -->
+  <div class="create-section">
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group" *ngIf="!editingEntity">
+        <label>ID to Update (Optional)</label>
+        <div class="id-input-group">
+          <input type="number" name="updateId" [(ngModel)]="updateId" placeholder="Enter ID to update">
+          <button type="button" (click)="loadEntityForEdit()" [disabled]="!updateId">Load for Edit</button>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Mood</label>
+        <input type="text" name="mood" [(ngModel)]="newEntity.mood" required>
+      </div>
+      <div class="form-group">
+        <label>Level</label>
+        <input type="number" name="level" [(ngModel)]="newEntity.level" required>
+      </div>
+      <div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
+      <div class="button-group">
+        <button type="submit">{{ editingEntity ? 'Update' : 'Create' }}</button>
+        <button type="button" *ngIf="editingEntity" (click)="cancelEdit()">Cancel Edit</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Right Section: Delete Form -->
+  <div class="delete-section">
+    <div class="form-group">
+      <label>ID</label>
+      <input type="number" [(ngModel)]="deleteId">
+    </div>
+    <button (click)="deleteId && onDelete(deleteId)" class="delete-button">Delete Button</button>
+  </div>
+
+  <!-- Results Section -->
+  <div class="results-section">
+    <div class="search-message" *ngIf="searchMessage">{{ searchMessage }}</div>
+    <div class="results-grid" *ngIf="entities.length > 0">
+      <app-hello-card 
+        *ngFor="let entity of entities; trackBy: trackById"
+        [entity]="entity"
+        (edit)="onEdit($event)"
+        (delete)="onDelete($event)">
+      </app-hello-card>
+    </div>
+  </div>
+</div>
